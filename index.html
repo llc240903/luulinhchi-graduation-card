@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Thiệp Mời Tốt Nghiệp - Lưu Linh Chi</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffe6f0, #ffccdd);
+      color: #333;
+      text-align: center;
+      padding: 50px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(255, 192, 203, 0.6);
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      color: #d63384;
+      font-size: 2.5em;
+    }
+    .info {
+      font-size: 1.1em;
+      margin: 20px 0;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #c2185b;
+    }
+    .button-group {
+      margin-top: 30px;
+    }
+    .btn {
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .yes {
+      background-color: #ff66a3;
+      color: white;
+    }
+    .no {
+      background-color: #f5f5f5;
+      color: #666;
+    }
+    #thankyou {
+      display: none;
+      margin-top: 30px;
+      font-size: 1.2em;
+      color: #6a1b9a;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Thiệp Mời Dự Lễ Tốt Nghiệp</h1>
+    <p class="info">Trân trọng mời bạn đến tham dự buổi lễ tốt nghiệp của <span class="highlight">Lưu Linh Chi</span></p>
+    <p class="info">Tại: HT700, Học Viện Tài Chính<br>58 Lê Văn Hiến, Đức Thắng, Bắc Từ Liêm, Hà Nội</p>
+    <p class="info">Vào chiều ngày <span class="highlight">10/08/2025</span></p>
+    <p class="info">SỰ CÓ MẶT CỦA tớ LÀ NIỀM VINH HẠNH CỦA bạn 💖</p>
+
+    <div class="button-group">
+      <button class="btn yes" onclick="accept()">Đồng Ý</button>
+      <button class="btn no" id="noBtn" onclick="decline()">Không Đồng Ý</button>
+    </div>
+
+    <div id="thankyou">
+      🎉 Cảm ơn bạn rất nhiều vì đã đồng ý!<br>Hẹn gặp bạn vào lúc <strong>chiều ngày 10/08/2025</strong> nhé! 💐
+    </div>
+  </div>
+
+  <script>
+    let noBtn = document.getElementById('noBtn');
+    let size = 1;
+
+    function decline() {
+      size -= 0.1;
+      if (size <= 0) {
+        noBtn.style.display = 'none';
+      } else {
+        noBtn.style.transform = `scale(${size})`;
+        noBtn.style.opacity = size;
+      }
+    }
+
+    function accept() {
+      document.getElementById('thankyou').style.display = 'block';
+      noBtn.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
+add index.html
+
