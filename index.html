@@ -1,250 +1,130 @@
-
-
-
-  
-  Thiệp Mời Tốt Nghiệp
-  
-  
-    body {
-      font-family: 'Times New Roman', serif;
-      text-align: center;
-      background: radial-gradient(circle, #ffe8f0, #fff6fb);
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Thiệp Mời Tốt Nghiệp</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body, html {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
       overflow: hidden;
-      margin: 0;
+      font-family: 'Times New Roman', serif;
       position: relative;
     }
+    canvas { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-1; }
+    .open-card-img {
+      position: absolute; top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      width: 200px; cursor: pointer;
+      border-radius: 10px; box-shadow:0 0 15px rgba(0,0,0,0.3);
+      z-index: 5;
+    }
+    .card {
+      display: none;
+      position: absolute;
+      top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      background: #fff;
+      padding: 40px;
+      border-radius:15px;
+      box-shadow: 0 0 20px rgba(255,192,203,0.7);
+      max-width: 600px;
+      z-index: 10;
+      animation: scaleIn 1s ease forwards;
+    }
+    @keyframes scaleIn {
+      from { transform: translate(-50%,-50%) scale(0.8); opacity:0; }
+      to { transform: translate(-50%,-50%) scale(1); opacity:1; }
+    }
+    h1 { font-family: 'Great Vibes', cursive; font-size:36px; color:#d6336c; margin:0 0 10px; }
+    p { font-size:18px; color:#333; }
+    .btn { padding:10px 20px; font-size:18px; margin:10px; border:none; border-radius:10px; cursor:pointer; }
+    .yes { background:#ff69b4; color:#fff; }
+    .no { background:#ccc; color:#000; position: relative; }
+    .hidden { display:none; }
+    .fade-out { opacity:0; transition:opacity 1s ease; }
+    .move { transition: transform 0.5s ease; }
+    .info { margin-top:20px; font-size:20px; color:#8b0000; animation: fadeIn 1s forwards; }
+    .info strong { color:#d40061; font-weight:bold; }
+    @keyframes fadeIn { from {opacity:0;} to{opacity:1;} }
+  </style>
+</head>
+<body>
+  <canvas id="petalCanvas"></canvas>
+  <img src="https://i.imgur.com/3NfQZ9F.png" alt="Mở thiệp" class="open-card-img" onclick="openCard()">
 
-<pre><code>canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
+  <div id="card" class="card">
+    <h1>Lưu Linh Chi</h1>
+    <p>Trân trọng mời bạn đến tham dự buổi lễ tốt nghiệp đánh dấu cột mốc quan trọng trong hành trình học tập.</p>
+    <button class="btn yes" onclick="showInfo()">Đồng ý</button>
+    <button id="noBtn" class="btn no" onclick="moveNo()">Không đồng ý</button>
+    <div id="info" class="info hidden">
+      <p>Cảm ơn bạn đã xác nhận tham dự! Hẹn gặp bạn tại buổi lễ!</p>
+      <p><strong>Thời gian:</strong> Chiều ngày 10/8/2025</p>
+      <p><strong>Địa điểm:</strong> HT700, Học Viện Tài Chính, Số 58 Lê Văn Hiến, Phường Đức Thắng, Quận Bắc Từ Liêm, TP. Hà Nội</p>
+    </div>
+  </div>
 
-.card {
-  padding: 40px;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(255, 192, 203, 0.7);
-  margin: 80px auto;
-  max-width: 600px;
-  animation: scaleIn 1.5s ease forwards;
-  display: none; /* Initially hidden */
-}
-
-.open-card-img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  height: 200px;
-  cursor: pointer;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  z-index: 10;
-  transition: transform 0.3s ease;
-}
-
-.open-card-img:hover {
-  transform: translate(-50%, -50%) scale(1.05);
-}
-
-@keyframes scaleIn {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.hidden {
-  display: none;
-}
-
-.fade-out {
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-
-.move {
-  transition: transform 0.5s ease;
-}
-
-.btn {
-  padding: 10px 20px;
-  font-size: 20px;
-  margin: 10px;
-  cursor: pointer;
-  border: none;
-  border-radius: 10px;
-}
-
-.yes {
-  background-color: #ff69b4;
-  color: white;
-}
-
-.no {
-  background-color: #ccc;
-  color: black;
-  position: relative;
-}
-
-.info {
-  margin-top: 20px;
-  font-size: 20px;
-  color: #8b0000;
-  animation: fadeIn 1.5s ease forwards;
-}
-
-.info strong {
-  font-weight: bold;
-  color: #d40061;
-}
-
-h1 {
-  font-family: &#39;Great Vibes&#39;, cursive;
-  font-size: 36px;
-  color: #c2185b;
-  margin-bottom: 10px;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-</code></pre>
-<p>  
-
-
-  
-  
-  
-    🎓 Thiệp Mời Tốt Nghiệp 🎓
-    Để đánh dấu cột mốc quan trọng trong hành trình học tập, Lưu Linh Chi trân trọng mời bạn đến tham dự buổi lễ tốt nghiệp.
-    Đồng ý
-    Không đồng ý
-
-<div id="info" class="info hidden">
-  <p>Cảm ơn bạn đã xác nhận tham dự! Hẹn gặp bạn tại buổi lễ!</p>
-  <p><strong>Thời gian:</strong> Chiều ngày 10/8/2025</p>
-  <p><strong>Địa điểm:</strong> HT700, Học Viện Tài Chính, Số 58 Lê Văn Hiến, Phường Đức Thắng, Quận Bắc Từ Liêm, TP. Hà Nội</p>
-</div>
-
-  
-
-  
-    // Petal animation
+  <script>
+    // petals
     const canvas = document.getElementById('petalCanvas');
     const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const petals = [];
-    const petalCount = 20;
-
-    class Petal {
-      constructor() {
-        this.reset();
+    let petals = [];
+    const petalCount = 30;
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+    class Petal { /* same logic: random spawn, fall, rotate */ 
+      constructor(){ this.reset(); }
+      reset(){ this.x=Math.random()*canvas.width; this.y=Math.random()*-canvas.height; this.size=Math.random()*10+10;
+        this.speedX=Math.random()*2-1; this.speedY=Math.random()*2+1; this.opacity=Math.random()*0.5+0.5;
+        this.angle=Math.random()*Math.PI*2; this.spin=(Math.random()-0.5)*0.05;
       }
-
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height - canvas.height;
-        this.size = Math.random() * 15 + 10;
-        this.speedX = Math.random() * 2 - 1;
-        this.speedY = Math.random() * 2 + 1;
-        this.opacity = Math.random() * 0.5 + 0.5;
-        this.angle = Math.random() * Math.PI * 2;
-        this.spin = (Math.random() - 0.5) * 0.05;
-      }
-
-      draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
+      draw(){ ctx.save(); ctx.translate(this.x,this.y); ctx.rotate(this.angle);
         ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.bezierCurveTo(
-          -this.size / 2, -this.size / 2,
-          this.size / 2, -this.size / 2,
-          this.size / 2, 0
-        );
-        ctx.bezierCurveTo(
-          this.size / 2, this.size / 2,
-          -this.size / 2, this.size / 2,
-          0, 0
-        );
-        ctx.fillStyle = `rgba(255, 105, 180, ${this.opacity})`;
-        ctx.fill();
-        ctx.restore();
+        ctx.moveTo(0,0); ctx.bezierCurveTo(-this.size/2,-this.size/2,this.size/2,-this.size/2,this.size/2,0);
+        ctx.bezierCurveTo(this.size/2,this.size/2,-this.size/2,this.size/2,0,0);
+        ctx.fillStyle = `rgba(255,105,180,${this.opacity})`; ctx.fill(); ctx.restore();
       }
-
-      update() {
-        this.x += this.speedX + Math.sin(this.y * 0.01) * 2; // Add oscillation
-        this.y += this.speedY;
-        this.angle += this.spin;
-        if (this.y > canvas.height + this.size || this.x < -this.size || this.x > canvas.width + this.size) {
-          this.reset();
-        }
+      update(){ this.x += this.speedX + Math.sin(this.y*0.01)*2; this.y += this.speedY; this.angle+=this.spin;
+        if(this.y>canvas.height+this.size||this.x< -this.size||this.x>canvas.width+this.size) this.reset();
         this.draw();
       }
     }
-
-    function initPetals() {
-      for (let i = 0; i < petalCount; i++) {
-        petals.push(new Petal());
-      }
+    for(let i=0;i<petalCount;i++) petals.push(new Petal());
+    function animate(){ ctx.clearRect(0,0,canvas.width,canvas.height);
+      petals.forEach(p=>p.update()); requestAnimationFrame(animate);
     }
+    animate();
 
-    function animatePetals() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      petals.forEach(petal => petal.update());
-      requestAnimationFrame(animatePetals);
-    }
-
-    initPetals();
-    animatePetals();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-
-    // Card functionality
-    function openCard() {
+    // card logic
+    function openCard(){
       document.querySelector('.open-card-img').classList.add('hidden');
-      document.getElementById('card').style.display = 'block';
+      document.getElementById('card').style.display='block';
     }
-
-    let noCount = 0;
-
-    function showInfo() {
+    let noCount=0;
+    function showInfo(){
       document.querySelector('.yes').classList.add('hidden');
-      document.getElementById("noBtn").classList.add('hidden');
-      document.getElementById("info").classList.remove("hidden");
+      const noBtn=document.getElementById('noBtn');
+      noBtn.classList.add('fade-out');
+      setTimeout(()=>noBtn.style.display='none',1000);
+      const info = document.getElementById('info');
+      info.classList.remove('hidden');
     }
-
-    function moveNo() {
-      const noBtn = document.getElementById("noBtn");
-      noCount++;
-      if (noCount <= 4) {
-        const randomX = (Math.random() - 0.5) * 200;
-        const randomY = (Math.random() - 0.5) * 200;
-        const scale = 1 - (noCount - 1) * 0.25;
-        noBtn.style.transform = `translate(${randomX}px, ${randomY}px) scale(${scale})`;
-        noBtn.classList.add("move");
-        setTimeout(() => noBtn.classList.remove("move"), 500);
+    function moveNo(){
+      const btn=document.getElementById('noBtn'); noCount++;
+      if(noCount<=4){
+        const x=(Math.random()-0.5)*200; const y=(Math.random()-0.5)*200;
+        btn.style.transform=`translate(${x}px,${y}px) scale(${1 - (noCount-1)*0.25})`;
+        btn.classList.add('move');
+        setTimeout(()=>btn.classList.remove('move'),500);
       } else {
-        noBtn.classList.add("fade-out");
-        setTimeout(() => noBtn.style.display = "none", 1000);
+        btn.classList.add('fade-out');
+        setTimeout(()=>btn.style.display='none',1000);
       }
     }
-  
+  </script>
+</body>
+</html>
 
