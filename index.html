@@ -1,123 +1,122 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Thiệp Mời Tốt Nghiệp</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thiệp Mời Lễ Tốt Nghiệp</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Great Vibes', cursive;
-      text-align: center;
-      background: radial-gradient(circle, #ffe8f0, #fff6fb);
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(145deg, #fff0f5, #ffe4e1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
       overflow: hidden;
     }
-
     .card {
-      padding: 40px;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 192, 203, 0.7);
-      margin: 80px auto;
-      max-width: 600px;
+      text-align: center;
+      background: #fff;
+      border-radius: 30px;
+      box-shadow: 0 0 25px rgba(255, 192, 203, 0.6);
+      padding: 30px;
+      width: 400px;
       position: relative;
       animation: sparkle 2s infinite;
     }
-
-    @keyframes sparkle {
-      0% { box-shadow: 0 0 10px rgba(255, 192, 203, 0.3); }
-      50% { box-shadow: 0 0 20px rgba(255, 105, 180, 0.6); }
-      100% { box-shadow: 0 0 10px rgba(255, 192, 203, 0.3); }
+    .card h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 36px;
+      color: #b30059;
+      margin-bottom: 10px;
     }
-
-    .chibi {
-      width: 150px;
+    .card p {
+      font-size: 18px;
+      color: #333;
       margin-bottom: 20px;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #ff69b4;
     }
-
     .hidden {
       display: none;
     }
-
-    .fade-out {
-      opacity: 0;
-      transition: opacity 1s ease;
+    .chibi {
+      width: 100px;
+      margin-bottom: 20px;
     }
-
-    .move-small {
-      transform: translateX(30px) scale(0.9);
-      transition: transform 0.5s ease;
+    .button-container {
+      display: flex;
+      justify-content: space-around;
     }
-
-    .btn {
+    button {
       padding: 10px 20px;
-      font-size: 20px;
-      margin: 10px;
-      cursor: pointer;
-      border: none;
+      font-size: 16px;
       border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
-
-    .yes {
-      background-color: #ff69b4;
+    #yesBtn {
+      background-color: #ff66b2;
       color: white;
     }
-
-    .no {
+    #noBtn {
       background-color: #ccc;
-      color: black;
-      position: relative;
     }
-
-    .info {
-      margin-top: 20px;
+    #thankYou {
       font-size: 20px;
-      color: #b22222;
-      animation: fadeIn 2s ease forwards;
+      font-weight: bold;
+      color: #cc0066;
+      margin-top: 20px;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    @keyframes sparkle {
+      0%, 100% { box-shadow: 0 0 25px rgba(255, 182, 193, 0.5); }
+      50% { box-shadow: 0 0 40px rgba(255, 105, 180, 0.7); }
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <img src="https://i.imgur.com/Wj4Z8bS.png" alt="Chibi" class="chibi">
-    <h1>🎓 Thiệp Mời Tốt Nghiệp 🎓</h1>
-    <p>Bạn có đồng ý tham dự buổi lễ tốt nghiệp của mình không?</p>
-    <button class="btn yes" onclick="showInfo()">Đồng ý</button>
-    <button id="noBtn" class="btn no" onclick="moveNo()">Không đồng ý</button>
-
-    <div id="info" class="info hidden">
-      <p>⏰ Thời gian: 9h00 - 11h00, Chủ Nhật 25/08/2025</p>
-      <p>📍 Địa điểm: Hội trường A, Trường Đại học XYZ</p>
+    <img class="chibi" src="chibi.png" alt="chibi image" />
+    <h1>Lưu Linh Chi</h1>
+    <p>Trân trọng mời bạn đến tham dự buổi lễ tốt nghiệp để đánh dấu cột mốc quan trọng trong hành trình học tập.</p>
+    <div class="button-container">
+      <button id="yesBtn">Đồng ý</button>
+      <button id="noBtn">Không đồng ý</button>
+    </div>
+    <div id="thankYou" class="hidden">
+      Cảm ơn bạn đã xác nhận tham dự! Hẹn gặp bạn tại buổi lễ!
+    </div>
+    <div id="details" class="hidden">
+      <p><strong>Thời gian:</strong> Chiều ngày 10/08/2025</p>
+      <p><strong>Địa điểm:</strong> HT700 Học Viện Tài Chính, Số 58 Lê Văn Hiến, phường Đức Thắng, quận Bắc Từ Liêm, TP. Hà Nội</p>
     </div>
   </div>
 
   <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const thankYou = document.getElementById("thankYou");
+    const details = document.getElementById("details");
     let noCount = 0;
 
-    function showInfo() {
-      document.getElementById("info").classList.remove("hidden");
-    }
+    yesBtn.addEventListener("click", () => {
+      thankYou.classList.remove("hidden");
+      details.classList.remove("hidden");
+      yesBtn.textContent = "✔";
+    });
 
-    function moveNo() {
-      const noBtn = document.getElementById("noBtn");
+    noBtn.addEventListener("click", () => {
       noCount++;
-      noBtn.classList.add("move-small");
-      setTimeout(() => {
-        noBtn.classList.remove("move-small");
-      }, 500);
+      noBtn.style.position = "absolute";
+      noBtn.style.left = Math.random() * 300 + "px";
+      noBtn.style.top = Math.random() * 300 + "px";
+      noBtn.style.transform = `scale(${1 - noCount * 0.2})`;
 
-      if (noCount >= 3) {
-        noBtn.classList.add("fade-out");
-        setTimeout(() => noBtn.style.display = "none", 1000);
+      if (noCount >= 4) {
+        noBtn.remove();
       }
-    }
+    });
   </script>
 </body>
 </html>
-
