@@ -8,7 +8,7 @@
     body {
       font-family: 'Times New Roman', serif;
       text-align: center;
-      background: radial-gradient(circle, #ffe8f0, #fff6fb);
+      background-color: #ffe0ec; /* Nền hồng */
       overflow: hidden;
       margin: 0;
       position: relative;
@@ -23,15 +23,15 @@
       z-index: -1;
     }
 
-   .open-card-img {
-    position: fixed; 
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    cursor: pointer;
-    z-index: 10;
-    transition: transform 0.3s ease;
+    .open-card-img {
+      position: fixed;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.3s ease;
     }
 
     .open-card-img:hover {
@@ -43,7 +43,7 @@
       background: white;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 192, 203, 0.7);
-      margin: 80px auto;
+      margin: 40px auto;
       max-width: 600px;
       animation: scaleIn 1.5s ease forwards;
       display: none;
@@ -107,10 +107,10 @@
 </head>
 <body>
 
-  <!-- Bông tuyết -->
+  <!-- Cánh hoa rơi -->
   <canvas id="petalCanvas"></canvas>
 
-  <!-- Ảnh thiệp -->
+  <!-- Ảnh mở thiệp -->
   <img src="https://raw.githubusercontent.com/llc240903/luulinhchi-graduation-card/main/Untitled.png" class="open-card-img" onclick="openCard()" alt="Thiệp Mời">
 
   <!-- Nội dung thiệp -->
@@ -128,60 +128,66 @@
   </div>
 
   <script>
-    // Bông tuyết trắng
+    // Hiệu ứng cánh hoa rơi (nhỏ lại)
     const canvas = document.getElementById('petalCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const snowflakes = [];
-    const flakeCount = 30;
+    const petals = [];
+    const petalCount = 50;
 
-    class Snowflake {
+    class Petal {
       constructor() {
         this.reset();
       }
 
       reset() {
         this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height - canvas.height;
-        this.size = Math.random() * 5 + 2;
-        this.speedX = Math.random() * 1 - 0.5;
-        this.speedY = Math.random() * 2 + 0.5;
-        this.opacity = Math.random() * 0.5 + 0.5;
+        this.y = Math.random() * -canvas.height;
+        this.size = Math.random() * 6 + 4; // Kích thước nhỏ hơn
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 1 + 0.3;
+        this.rotation = Math.random() * 2 * Math.PI;
+        this.rotationSpeed = Math.random() * 0.02 - 0.01;
+        this.opacity = Math.random() * 0.5 + 0.3;
       }
 
       draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 182, 193, ${this.opacity})`;
         ctx.fill();
+        ctx.restore();
       }
 
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-        if (this.y > canvas.height) {
-          this.reset();
-        }
+        this.rotation += this.rotationSpeed;
+
+        if (this.y > canvas.height) this.reset();
         this.draw();
       }
     }
 
-    function initFlakes() {
-      for (let i = 0; i < flakeCount; i++) {
-        snowflakes.push(new Snowflake());
+    function initPetals() {
+      for (let i = 0; i < petalCount; i++) {
+        petals.push(new Petal());
       }
     }
 
-    function animateFlakes() {
+    function animatePetals() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      snowflakes.forEach(flake => flake.update());
-      requestAnimationFrame(animateFlakes);
+      petals.forEach(petal => petal.update());
+      requestAnimationFrame(animatePetals);
     }
 
-    initFlakes();
-    animateFlakes();
+    initPetals();
+    animatePetals();
 
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
@@ -194,7 +200,7 @@
       document.getElementById('card').style.display = 'block';
     }
 
-    // Xử lý đồng ý/không đồng ý
+    // Đồng ý / không đồng ý
     let noCount = 0;
 
     function showInfo() {
